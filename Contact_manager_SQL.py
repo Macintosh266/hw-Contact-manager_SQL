@@ -12,8 +12,11 @@ cur=conn.cursor()
 
 def add_contact(number,name):
     conn.commit()
-    cur.execute("insert into contacts(phone,first_name) values (%s,%s)",(number,name))
-    print("Kontakt qo'shildi")
+    if number.isdigit():
+        cur.execute("insert into contacts(phone,first_name) values (%s,%s)",(number,name))
+        print("Kontakt qo'shildi")
+    else:
+        print("Xatolik:Raqam xato kiritilgan")
 
 def watch_list():
     cur.execute("SELECT * FROM contacts")
@@ -36,11 +39,11 @@ def Menu():
     ''')
 
     while True:
-        num = int(input("Kiriting: "))
+        num = int(input("Raqam Kiriting: "))
 
         if num==1:
-            number=str(input("Raqamingizni kiriting: "))
-            name=str(input("Ismini kiriting: "))
+            number=str(input("Kontakt Telefon Raqamini kiriting: "))
+            name=str(input("Kontakt Ismini kiriting: "))
             add_contact(number,name)
 
         elif num==2:
